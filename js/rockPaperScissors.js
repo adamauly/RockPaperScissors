@@ -22,9 +22,11 @@ function playerSelection() {
     return weapon
 }
 
+let computerChoice = getComputerChoice();
+let playerChoice = playerSelection();
+
 function singleRound(computerChoice, playerChoice) {
-    computerChoice = getComputerChoice();
-    playerChoice = playerSelection();
+    console.log(computerChoice)
     if (computerChoice == "rock" && playerChoice== "scissors") {
         ++computerWin
         return "Lose"
@@ -39,7 +41,7 @@ function singleRound(computerChoice, playerChoice) {
         return "Lose"
     } else if (computerChoice == "paper" && playerChoice== "paper") {
         ++tie
-        return "tie"
+        return "Tied"
     } else if (computerChoice == "paper" && playerChoice== "scissors") {
         ++playerWin
         return "Won"
@@ -56,12 +58,18 @@ function singleRound(computerChoice, playerChoice) {
 }
 
 function capitalizeFirstLetter(text) {
-    text = text[0].toUpperCase() + text.slice(1)
+    firstLetter = text[0].toUpperCase();
+    return (firstLetter + text.slice(1));
 }
 
 
 // if (singleRound() != "Tied") {
 //     console.log("You $(singleRound())! ")
 // }  
-roundResult = singleRound();
+roundResult = singleRound(computerChoice, playerChoice);
 
+if (roundResult != "Tied") {
+    console.log("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
+} else {
+    console.log("You" + roundResult + "! Try again.")
+}
