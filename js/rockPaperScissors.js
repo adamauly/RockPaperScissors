@@ -1,9 +1,10 @@
 let playerWin = 0;
 let computerWin = 0;
+let tie = 0;
 
 function getComputerChoice() {
     if (getRandomInt() == 0) {
-        return "rock"
+         "rock"
     } else if (getRandomInt() == 1) {
         return "paper"
     } else {
@@ -16,43 +17,51 @@ function getRandomInt() {
 }
 
 function playerSelection() {
-    let weapon = prompt("Please enter 'Rock', 'Paper', or 'Scissors': ").toLowerCase;
+    let weapon = prompt("Please enter 'Rock', 'Paper', or 'Scissors': ");
+    weapon = weapon.toLowerCase();
+    return weapon
 }
 
-function singleRound(getComputerChoice, playerSelection) {
-    if (getComputerChoice() == "rock" && playerSelection == "scissors") {
+function singleRound(computerChoice, playerChoice) {
+    computerChoice = getComputerChoice();
+    playerChoice = playerSelection();
+    if (computerChoice == "rock" && playerChoice== "scissors") {
         ++computerWin
         return "Lose"
-    } else if (getComputerChoice() == "rock" && playerSelection == "rock") {
+    } else if (computerChoice == "rock" && playerChoice== "rock") {
         ++tie
         return "Tied"
-    } else if (getComputerChoice() == "rock" && playerSelection == "paper") {
+    } else if (computerChoice == "rock" && playerChoice== "paper") {
         ++playerWin
         return "Won"
-    } else if (getComputerChoice() == "paper" && playerSelection == "rock") {
+    } else if (computerChoice == "paper" && playerChoice== "rock") {
         ++computerWin
         return "Lose"
-    } else if (getComputerChoice() == "paper" && playerSelection == "paper") {
+    } else if (computerChoice == "paper" && playerChoice== "paper") {
         ++tie
         return "tie"
-    } else if (getComputerChoice() == "paper" && playerSelection == "scissors") {
+    } else if (computerChoice == "paper" && playerChoice== "scissors") {
         ++playerWin
         return "Won"
-    } else if (getComputerChoice() == "scissors" && playerSelection == "paper") {
+    } else if (computerChoice == "scissors" && playerChoice== "paper") {
         ++computerWin
         return "Lose"
-    } else if (getComputerChoice() == "scissors" && playerSelection == "scissors") {
+    } else if (computerChoice == "scissors" && playerChoice== "scissors") {
         ++tie
         return "Tied"
-    } else if (getComputerChoice() == "scissors" && playerSelection == "rock") {
+    } else if (computerChoice == "scissors" && playerChoice== "rock") {
         ++playerWin
         return "Won"
     }
+}
+
+function capitalizeFirstLetter(text) {
+    text = text[0].toUpperCase() + text.slice(1)
+}
 
 
+// if (singleRound() != "Tied") {
+//     console.log("You $(singleRound())! ")
+// }  
+roundResult = singleRound();
 
-if (singleRound() != "Tied") {
-
-}  
-
-console.log(getComputerChoice())
