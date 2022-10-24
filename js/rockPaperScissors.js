@@ -59,24 +59,28 @@ function capitalizeFirstLetter(text) {
     return (firstLetter + text.slice(1));
 }
 
-while ((playerWin || computerWin) < 5) {
-    let computerChoice = getComputerChoice();
-    let playerChoice = playerSelection();
-
-    roundResult = singleRound(computerChoice, playerChoice);
-
-    if (roundResult != "Tied") {
-        alert("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
-    } else {
-        alert("You" + roundResult + "! Try again.")
+function game() {
+    while ((playerWin || computerWin) < 5) {
+        let computerChoice = getComputerChoice();
+        let playerChoice = playerSelection();
+    
+        roundResult = singleRound(computerChoice, playerChoice);
+    
+        if (roundResult != "Tied") {
+            alert("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
+        } else {
+            alert("You" + roundResult + "! Try again.")
+        }
+    
+        console.log("Computer wins: " + computerWin)
+        console.log("Player wins: " + playerWin)
     }
-
-    console.log("Computer wins: " + computerWin)
-    console.log("Player wins: " + playerWin)
+    
+    if (playerWin == 5) {
+        alert("Congratulations! You won!\n Reload the page to play again!")
+    } else {
+        alert("You lost!\n Reload the page and try again!")
+    }
 }
 
-if (playerWin == 3) {
-    alert("Congratulations! You won!\n Reload the page to play again!")
-} else {
-    alert("You lost!\n Reload the page and try again!")
-}
+game();
