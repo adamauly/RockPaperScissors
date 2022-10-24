@@ -12,4 +12,11 @@ function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
 
+function playerSelection() {
+    let weapon = prompt("Please enter 'Rock', 'Paper', or 'Scissors': ").toLowerCase;
+    return weapon;
+}
+
+
+
 console.log(getComputerChoice())
