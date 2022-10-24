@@ -4,7 +4,7 @@ let tie = 0;
 
 function getComputerChoice() {
     if (getRandomInt() == 0) {
-         "rock"
+        return "rock"
     } else if (getRandomInt() == 1) {
         return "paper"
     } else {
@@ -22,11 +22,7 @@ function playerSelection() {
     return weapon
 }
 
-let computerChoice = getComputerChoice();
-let playerChoice = playerSelection();
-
 function singleRound(computerChoice, playerChoice) {
-    console.log(computerChoice)
     if (computerChoice == "rock" && playerChoice== "scissors") {
         ++computerWin
         return "Lose"
@@ -58,18 +54,29 @@ function singleRound(computerChoice, playerChoice) {
 }
 
 function capitalizeFirstLetter(text) {
+    console.log("Text parameter is: " + text)
     firstLetter = text[0].toUpperCase();
     return (firstLetter + text.slice(1));
 }
 
+while ((playerWin || computerWin) < 5) {
+    let computerChoice = getComputerChoice();
+    let playerChoice = playerSelection();
 
-// if (singleRound() != "Tied") {
-//     console.log("You $(singleRound())! ")
-// }  
-roundResult = singleRound(computerChoice, playerChoice);
+    roundResult = singleRound(computerChoice, playerChoice);
 
-if (roundResult != "Tied") {
-    console.log("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
+    if (roundResult != "Tied") {
+        alert("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
+    } else {
+        alert("You" + roundResult + "! Try again.")
+    }
+
+    console.log("Computer wins: " + computerWin)
+    console.log("Player wins: " + playerWin)
+}
+
+if (playerWin == 3) {
+    alert("Congratulations! You won!\n Reload the page to play again!")
 } else {
-    console.log("You" + roundResult + "! Try again.")
+    alert("You lost!\n Reload the page and try again!")
 }
