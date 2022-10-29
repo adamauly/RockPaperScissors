@@ -70,9 +70,6 @@ function roundPrompt(roundResult) {
         + capitalizeFirstLetter(playerChoice) + " beats " 
         + capitalizeFirstLetter(computerChoice) + ". \n Your score is " 
         + playerWin + " and the computer's score is " + computerWin + "!";
-    console.log("Prompt message is: " + promptMessage);
-    console.log("Praise is: " + praise[getRandomInt(6)]);
-    console.log("Praise phrase is: " + praise[getRandomInt(6)] + promptMessage);
 
     if (roundResult == "Tied") {
         alert("YOU ARE BOTH " + taunt[getRandomInt(6)] + "\nYou " + roundResult 
