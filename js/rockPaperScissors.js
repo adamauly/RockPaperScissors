@@ -85,7 +85,7 @@ function roundPrompt(roundResult) {
 
 function game() {
     buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (e) => {
             playerChoice = btn.id;
             let roundResult = singleRound();
             roundPrompt(roundResult);

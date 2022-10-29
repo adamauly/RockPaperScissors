@@ -1,7 +1,6 @@
 html, 
 body {
     height: 100%;
-    border: 1px solid green;
 }
 .buttonContainer {
     display: flex;
@@ -9,13 +8,30 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    border: 1px solid black;
 }
 
 button {
     background-color: rgb(162, 162, 214);
-    border: 0;
+    border: 6px double white;
     border-radius: 12px;
     height: 64px;
     width: 128px;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    color: honeydew;
+    font-size: 18px;
 }
+
+button:hover {
+    border: 0;
+    animation: change-color 1.47s infinite;
+  }
+  
+  @keyframes change-color {
+    50% {
+      background-color: rgb(211, 100, 118);
+    }
+    100% {
+      background-color: rgb(162, 162, 214);
+    }
+  }
