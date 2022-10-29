@@ -4,10 +4,15 @@ let tie = 0;
 const buttons = document.querySelectorAll("button")
 let playerChoice = 'defaultPlayer';
 let computerChoice = 'defaultPC';
+let praise = ["WOW!", "FANTASTIC!", "AWESOME!", "GREAT!", "UNBELIEVABLE!", 
+    "MASTERFUL!"];
+let taunt = ["TERRIBLE!", "TRASH!", "LAUGHABLE!", "SHAMEFUL!", "HORRIBLE!", 
+    "THE WORST!"];
+
 
 
 function getComputerChoice() {
-    if (getRandomInt() == 0) {
+    if (getRandomInt(3) == 0) {
         return "rock"
     } else if (getRandomInt() == 1) {
         return "paper"
@@ -16,15 +21,13 @@ function getComputerChoice() {
     }
 }
 
-function getRandomInt() {
-    return Math.floor(Math.random() * 3);
+function getRandomInt(num) {
+    return Math.floor(Math.random() * num);
 }
 
 
 function singleRound() {
     computerChoice = getComputerChoice();
-    console.log(computerChoice);
-    console.log(playerChoice);
     if (computerChoice == "rock" && playerChoice== "scissors") {
         ++computerWin
         return "Lose"
@@ -61,34 +64,35 @@ function capitalizeFirstLetter(text) {
 }
 
 function roundPrompt(roundResult) {
-    if (roundResult != "Tied") {
-        alert("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ". \n Your score is " + playerWin + " and the computer's score is " + computerWin + "!")
+    alert("Computer chose " + capitalizeFirstLetter(computerChoice));
+    let promptMessage = "\nYou " + roundResult + "! " + capitalizeFirstLetter(playerChoice) 
+        + " beats " + capitalizeFirstLetter(computerChoice) + ". \n Your score is " 
+        + playerWin + " and the computer's score is " + computerWin + "!";
+    if (roundResult == "Tied") {
+        alert("YOU ARE BOTH " + taunt[getRandomInt(6)] + "\nYou " + roundResult 
+        + "! Try again.\n Your score is " + playerWin + " and the computer's score is " 
+        + computerWin + "!");
     } else {
-        alert("You " + roundResult + "! Try again.\n Your score is " + playerWin + " and the computer's score is " + computerWin + "!")
-    }
+        if (roundResult == "Win") promptMessage = praise[getRandomInt(6)] + promptMessage;
+        if (roundResult == "Lose") promptMessage = taunt[getRandomInt(6)] + promptMessage;
+        alert(promptMessage);
+    };
 }
 
 function game() {
-    while ((playerWin || computerWin) < 5) {
-        
-    
-
-    
-        console.log("Computer wins: " + computerWin)
-        console.log("Player wins: " + playerWin)
-    }
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            playerChoice = btn.id;
+            let roundResult = singleRound();
+            roundPrompt(roundResult);
+        });
+    });
     
     if (playerWin == 5) {
         alert("Congratulations! You won!\n Reload the page to play again!")
-    } else {
+    } else if (computerWin == 5) {
         alert("You lost!\n Reload the page and try again!")
-    }
-}
+    };
+};
 
-buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        playerChoice = btn.id;
-        let roundResult = singleRound();
-        roundPrompt(roundResult);
-    });
-});
+game();
