@@ -1,20 +1,40 @@
+let win = false;
 let playerWin = 0;
 let computerWin = 0;
 let tie = 0;
 const buttons = document.querySelectorAll("button")
 let playerChoice = 'defaultPlayer';
 let computerChoice = 'defaultPC';
-let praise = ["WOW!", "FANTASTIC!", "AWESOME!", "GREAT!", "UNBELIEVABLE!", 
-    "MASTERFUL!"];
-let taunt = ["TERRIBLE!", "TRASH!", "LAUGHABLE!", "SHAMEFUL!", "HORRIBLE!", 
-    "THE WORST!"];
+let praise = ["TERRIFIC", "FANTASTIC", "AWESOME", "GREAT", "UNBELIEVABLE", 
+    "MASTERFUL", "AWE-INSPIRING", "BREATHTAKING", "JAW-DROPPING", "SUBLIME", 
+    "STUNNING", "SPECTACULAR", "MARVELOUS", "SUPERB"];
+let taunt = ["TERRIBLE", "TRASH", "ABHORRENT", "LAUGHABLE", "SHAMEFUL", "HORRIBLE", 
+    "EMBARRASSING", "GHASTLY", "TOILET-WATER", "ATROCIOUS", "RUBBISH", "REVOLTING",
+    "GROSS", "USELESS", "HEINOUS", "UNSPEAKABLE", "HORRENDOUS", "DREADFUL"];
+let loseFace = ["(凸ಠ益ಠ)凸", "(>_<)", "(・.・;)", "(°_°)", "((+_+))", "(ToT)", "(；一_一)",
+    "(?_?)", "(－‸ლ)"];
+let winFace = ["ヽ(^。^)ノ", "ᕕ( ᐛ )ᕗ", "(^o^)／", "^m^", "(#^.^#)", "(^o^)"];
+let face = document.querySelector(".webFace")
 
+function changeFace(result) {
+    if (result == "Win" || result == "Tied") face.textContent = loseFace[getRandomInt(9)];
+    if (result == "Lose") face.textContent = winFace[getRandomInt(6)];
+};
 
+// function animateFace(result) {
+//     if (result == "Win") {
+//         num = getRandomInt(3);
+//         face.style.transform = scale(-1);
+//     } else {
+//         face.style.transform = scaleX(-1);
+//     };
+// };
 
 function getComputerChoice() {
-    if (getRandomInt(3) == 0) {
+    num = getRandomInt(3);
+    if (num == 0) {
         return "rock"
-    } else if (getRandomInt() == 1) {
+    } else if (num == 1) {
         return "paper"
     } else {
         return "scissors"
@@ -25,9 +45,22 @@ function getRandomInt(num) {
     return Math.floor(Math.random() * num);
 }
 
-
 function singleRound() {
     computerChoice = getComputerChoice();
+    if (computerWin == 5) {
+        alert("You were supposed to reload the page you " 
+        + taunt[getRandomInt(praise.length-1)].toLowerCase() + " loser!\nNow, REFRESH!");
+        forceRefresh();
+    };
+    console.log("passing")
+    if (playerWin == 5) {
+        alert("Please!\nGloating is really " + taunt[getRandomInt(praise.length-1)].toLowerCase()
+        + " behaviour and it doesn't suit you. You have already proven your " 
+        + praise[getRandomInt(praise.length-1)].toLowerCase() 
+        + " abilities and won!\nNow, REFRESH!");
+        forceRefresh();
+    };
+    console.log("Passing thru")
     if (computerChoice == "rock" && playerChoice== "scissors") {
         ++computerWin
         return "Lose"
@@ -36,7 +69,7 @@ function singleRound() {
         return "Tied"
     } else if (computerChoice == "rock" && playerChoice == "paper") {
         ++playerWin
-        return "Won"
+        return "Win"
     } else if (computerChoice == "paper" && playerChoice == "rock") {
         ++computerWin
         return "Lose"
@@ -45,7 +78,7 @@ function singleRound() {
         return "Tied"
     } else if (computerChoice == "paper" && playerChoice == "scissors") {
         ++playerWin
-        return "Won"
+        return "Win"
     } else if (computerChoice == "scissors" && playerChoice == "paper") {
         ++computerWin
         return "Lose"
@@ -54,9 +87,10 @@ function singleRound() {
         return "Tied"
     } else if (computerChoice == "scissors" && playerChoice == "rock") {
         ++playerWin
-        return "Won"
+        return "Win"
     }
-}
+    
+};
 
 function capitalizeFirstLetter(text) {
     firstLetter = text[0].toUpperCase();
@@ -64,6 +98,8 @@ function capitalizeFirstLetter(text) {
 }
 
 function roundPrompt(roundResult) {
+    if (win) return;
+
     alert("Computer chose " + capitalizeFirstLetter(computerChoice));
     
     let promptMessage = "\nYou " + roundResult + "! " 
@@ -72,29 +108,39 @@ function roundPrompt(roundResult) {
         + playerWin + " and the computer's score is " + computerWin + "!";
 
     if (roundResult == "Tied") {
-        alert("YOU ARE BOTH " + taunt[getRandomInt(6)] + "\nYou " + roundResult 
+        alert("YOU ARE BOTH " + taunt[getRandomInt(praise.length-1)] + "!\nYou " + roundResult 
         + "! Try again.\n Your score is " + playerWin + " and the computer's score is " 
         + computerWin + "!");
     }
-    if (roundResult == "Won") alert(praise[getRandomInt(6)] 
+    if (roundResult == "Win") alert(praise[getRandomInt(praise.length-1)] + "!" 
         + promptMessage);
-    if (roundResult == "Lose") alert(taunt[getRandomInt(6)] 
+    if (roundResult == "Lose") alert(taunt[getRandomInt(praise.length-1)] + "!"
         + promptMessage);
+
+    changeFace(roundResult);
+    if (playerWin == 5 || computerWin == 5) {
+        win = true;
+//          animateFace(roundResult);
+        if (playerWin == 5) {
+            alert("Congratulations you " + praise[getRandomInt(praise.length-1)].toLowerCase() 
+                + "ly " + praise[getRandomInt(praise.length-1)].toLocaleLowerCase() 
+                + " individual! You Win!\n Reload the page to play again!");
+        };
+        if (computerWin == 5) {
+            alert("You really are " + taunt[getRandomInt(praise.length-1)].toLowerCase() 
+                + "! You lost!\n Reload the page and try again!");
+        };
+    };
 };
 
-
-function game() {
-    buttons.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            playerChoice = btn.id;
-            let roundResult = singleRound();
-            roundPrompt(roundResult);
-        });
+buttons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        playerChoice = btn.id;
+        let roundResult = singleRound();
+        roundPrompt(roundResult);
     });
-    
-    if (playerWin == 5) alert("Congratulations! You won!\n Reload the page to play again!")
-    if (computerWin == 5) alert("You lost!\n Reload the page and try again!")
-    
-};
+});
 
-game();
+function forceRefresh() {
+    window.location.reload();
+};
