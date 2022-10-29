@@ -11,13 +11,13 @@ let praise = ["TERRIFIC", "FANTASTIC", "AWESOME", "GREAT", "UNBELIEVABLE",
 let taunt = ["TERRIBLE", "TRASH", "ABHORRENT", "LAUGHABLE", "SHAMEFUL", "HORRIBLE", 
     "EMBARRASSING", "GHASTLY", "TOILET-WATER", "ATROCIOUS", "RUBBISH", "REVOLTING",
     "GROSS", "USELESS", "HEINOUS", "UNSPEAKABLE", "HORRENDOUS", "DREADFUL"];
-let loseFace = ["(凸ಠ益ಠ)凸", "(>_<)", "(・.・;)", "(°_°)", "((+_+))", "(ToT)", "(；一_一)",
+let loseFace = ["(凸ಠ益ಠ)凸", "(>_<)", "(・.・;)", "(°_°)", "((+_+))", "(ToT)",
     "(?_?)", "(－‸ლ)"];
 let winFace = ["ヽ(^。^)ノ", "ᕕ( ᐛ )ᕗ", "(^o^)／", "^m^", "(#^.^#)", "(^o^)"];
 let face = document.querySelector(".webFace")
 
 function changeFace(result) {
-    if (result == "Win" || result == "Tied") face.textContent = loseFace[getRandomInt(9)];
+    if (result == "Win" || result == "Tied") face.textContent = loseFace[getRandomInt(8)];
     if (result == "Lose") face.textContent = winFace[getRandomInt(6)];
 };
 
@@ -46,13 +46,14 @@ function getRandomInt(num) {
 }
 
 function singleRound() {
+    console.log("passing through")
     computerChoice = getComputerChoice();
     if (computerWin == 5) {
         alert("You were supposed to reload the page you " 
         + taunt[getRandomInt(praise.length-1)].toLowerCase() + " loser!\nNow, REFRESH!");
         forceRefresh();
     };
-    console.log("passing")
+    console.log("passing thru")
     if (playerWin == 5) {
         alert("Please!\nGloating is really " + taunt[getRandomInt(praise.length-1)].toLowerCase()
         + " behaviour and it doesn't suit you. You have already proven your " 
@@ -60,7 +61,7 @@ function singleRound() {
         + " abilities and won!\nNow, REFRESH!");
         forceRefresh();
     };
-    console.log("Passing thru")
+    console.log("Passing fru")
     if (computerChoice == "rock" && playerChoice== "scissors") {
         ++computerWin
         return "Lose"
