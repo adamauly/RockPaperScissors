@@ -2,11 +2,9 @@ let playerWin = 0;
 let computerWin = 0;
 let tie = 0;
 const buttons = document.querySelectorAll("button")
-buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        alert(btn.id);
-    });
-});
+let playerChoice = 'defaultPlayer';
+let computerChoice = 'defaultPC';
+
 
 function getComputerChoice() {
     if (getRandomInt() == 0) {
@@ -22,13 +20,11 @@ function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
 
-function playerSelection() {
-    let weapon = prompt("Please enter 'Rock', 'Paper', or 'Scissors': ");
-    weapon = weapon.toLowerCase();
-    return weapon
-}
 
-function singleRound(computerChoice, playerChoice) {
+function singleRound() {
+    computerChoice = getComputerChoice();
+    console.log(computerChoice);
+    console.log(playerChoice);
     if (computerChoice == "rock" && playerChoice== "scissors") {
         ++computerWin
         return "Lose"
@@ -64,51 +60,35 @@ function capitalizeFirstLetter(text) {
     return (firstLetter + text.slice(1));
 }
 
-// function game() {
-//     while ((playerWin || computerWin) < 5) {
-//         let computerChoice = getComputerChoice();
-//         let playerChoice = playerSelection();
+function roundPrompt(roundResult) {
+    if (roundResult != "Tied") {
+        alert("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ". \n Your score is " + playerWin + " and the computer's score is " + computerWin + "!")
+    } else {
+        alert("You " + roundResult + "! Try again.\n Your score is " + playerWin + " and the computer's score is " + computerWin + "!")
+    }
+}
+
+function game() {
+    while ((playerWin || computerWin) < 5) {
+        
     
-//         roundResult = singleRound(computerChoice, playerChoice);
+
     
-//         if (roundResult != "Tied") {
-//             alert("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
-//         } else {
-//             alert("You " + roundResult + "! Try again.")
-//         }
+        console.log("Computer wins: " + computerWin)
+        console.log("Player wins: " + playerWin)
+    }
     
-//         console.log("Computer wins: " + computerWin)
-//         console.log("Player wins: " + playerWin)
-//     }
-    
-//     if (playerWin == 5) {
-//         alert("Congratulations! You won!\n Reload the page to play again!")
-//     } else {
-//         alert("You lost!\n Reload the page and try again!")
-//     }
-// }
+    if (playerWin == 5) {
+        alert("Congratulations! You won!\n Reload the page to play again!")
+    } else {
+        alert("You lost!\n Reload the page and try again!")
+    }
+}
 
-// function game() {
-//     let computerChoice = getComputerChoice();
-//     let playerChoice = playerSelection();
-
-//     roundResult = singleRound(computerChoice, playerChoice);
-
-//     if (roundResult != "Tied") {
-//         alert("You " + roundResult + "! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
-//     } else {
-//         alert("You " + roundResult + "! Try again.")
-//     }
-
-//     console.log("Computer wins: " + computerWin)
-//     console.log("Player wins: " + playerWin)
-// }
-
-// if (playerWin == 5) {
-//     alert("Congratulations! You won!\n Reload the page to play again!")
-// } else {
-//     alert("You lost!\n Reload the page and try again!")
-// }
-
-
-game();
+buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        playerChoice = btn.id;
+        let roundResult = singleRound();
+        roundPrompt(roundResult);
+    });
+});
