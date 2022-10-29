@@ -65,19 +65,26 @@ function capitalizeFirstLetter(text) {
 
 function roundPrompt(roundResult) {
     alert("Computer chose " + capitalizeFirstLetter(computerChoice));
-    let promptMessage = "\nYou " + roundResult + "! " + capitalizeFirstLetter(playerChoice) 
-        + " beats " + capitalizeFirstLetter(computerChoice) + ". \n Your score is " 
+    
+    let promptMessage = "\nYou " + roundResult + "! " 
+        + capitalizeFirstLetter(playerChoice) + " beats " 
+        + capitalizeFirstLetter(computerChoice) + ". \n Your score is " 
         + playerWin + " and the computer's score is " + computerWin + "!";
+    console.log("Prompt message is: " + promptMessage);
+    console.log("Praise is: " + praise[getRandomInt(6)]);
+    console.log("Praise phrase is: " + praise[getRandomInt(6)] + promptMessage);
+
     if (roundResult == "Tied") {
         alert("YOU ARE BOTH " + taunt[getRandomInt(6)] + "\nYou " + roundResult 
         + "! Try again.\n Your score is " + playerWin + " and the computer's score is " 
         + computerWin + "!");
-    } else {
-        if (roundResult == "Win") promptMessage = praise[getRandomInt(6)] + promptMessage;
-        if (roundResult == "Lose") promptMessage = taunt[getRandomInt(6)] + promptMessage;
-        alert(promptMessage);
-    };
-}
+    }
+    if (roundResult == "Won") alert(praise[getRandomInt(6)] 
+        + promptMessage);
+    if (roundResult == "Lose") alert(taunt[getRandomInt(6)] 
+        + promptMessage);
+};
+
 
 function game() {
     buttons.forEach((btn) => {
@@ -88,11 +95,9 @@ function game() {
         });
     });
     
-    if (playerWin == 5) {
-        alert("Congratulations! You won!\n Reload the page to play again!")
-    } else if (computerWin == 5) {
-        alert("You lost!\n Reload the page and try again!")
-    };
+    if (playerWin == 5) alert("Congratulations! You won!\n Reload the page to play again!")
+    if (computerWin == 5) alert("You lost!\n Reload the page and try again!")
+    
 };
 
 game();
