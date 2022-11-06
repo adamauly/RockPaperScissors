@@ -29,6 +29,7 @@ function changeFace(result) {
 //         face.style.transform = scaleX(-1);
 //     };
 // };
+//
 
 function getComputerChoice() {
     num = getRandomInt(3);
